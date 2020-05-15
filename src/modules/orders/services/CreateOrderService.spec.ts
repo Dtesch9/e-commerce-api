@@ -79,6 +79,20 @@ describe('CreateCustomer', () => {
     ).rejects.toBeInstanceOf(AppError);
   });
 
+  it('should not be able to create a new order with invalid product id', async () => {
+    const { id: customer_id } = await fakeCustomersRepository.create({
+      name: 'Douglas Tesch',
+      email: 'douglas@hotmail.com',
+    });
+
+    await expect(
+      createOrderService.execute({
+        customer_id,
+        products: [{ id: 'no-existing-id', quantity: 4 }],
+      }),
+    ).rejects.toBeInstanceOf(AppError);
+  });
+
   it('should not be able to create a new order with quantity out of stock', async () => {
     const { id: customer_id } = await fakeCustomersRepository.create({
       name: 'Douglas Tesch',
