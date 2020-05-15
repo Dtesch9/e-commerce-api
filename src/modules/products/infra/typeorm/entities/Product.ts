@@ -9,7 +9,7 @@ import {
 
 import OrdersProducts from '@modules/orders/infra/typeorm/entities/OrdersProducts';
 
-@Entity()
+@Entity('products')
 class Product {
   @PrimaryGeneratedColumn('uuid')
   id: string;
@@ -20,7 +20,7 @@ class Product {
   @Column('decimal')
   price: number;
 
-  @Column('number')
+  @Column('integer')
   quantity: number;
 
   @OneToMany(() => OrdersProducts, OrderProducts => OrderProducts.product)

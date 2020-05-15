@@ -58,7 +58,7 @@ export default class CreateOrdersProducts1589495708866
             name: 'ProductId',
             referencedTableName: 'products',
             referencedColumnNames: ['id'],
-            columnNames: ['products_id'],
+            columnNames: ['product_id'],
             onDelete: 'SET NULL',
             onUpdate: 'CASCADE',
           },

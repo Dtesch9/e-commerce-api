@@ -43,6 +43,10 @@ class CreateProductService {
       productsIds,
     );
 
+    if (productsFromIds.length < products.length) {
+      throw new AppError('Invalid Product');
+    }
+
     const hasInvalidQuantity = products.find(product => {
       return productsFromIds.find(
         stockProduct => product.quantity > stockProduct.quantity,

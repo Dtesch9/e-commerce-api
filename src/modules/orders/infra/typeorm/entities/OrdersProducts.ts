@@ -24,16 +24,16 @@ class OrdersProducts {
   @JoinColumn({ name: 'product_id' })
   product: Product;
 
-  @Column()
+  @Column('uuid')
   product_id: string;
 
-  @Column()
+  @Column('uuid')
   order_id: string;
 
   @Column('decimal')
   price: number;
 
-  @Column()
+  @Column('integer')
   quantity: number;
 
   @CreateDateColumn()
