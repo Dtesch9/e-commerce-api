@@ -1,40 +1,42 @@
 import 'reflect-metadata';
 
 import AppError from '@shared/errors/AppError';
-import CreateCustomerService from './CreateCustomerService';
-import FakeCustomersRepository from '../repositories/fakes/FakeCustomersRepository';
+import CreateProductService from './CreateProductService';
+import FakeProductsRepository from '../repositories/fakes/FakeProductsRepository';
 
-let fakeCustomersRepository: FakeCustomersRepository;
-let createCustomerService: CreateCustomerService;
+let fakeProductsRepository: FakeProductsRepository;
+let createProductService: CreateProductService;
 
 describe('CreateCustomer', () => {
-  beforeAll(() => {
-    fakeCustomersRepository = new FakeCustomersRepository();
+  beforeEach(() => {
+    fakeProductsRepository = new FakeProductsRepository();
 
-    createCustomerService = new CreateCustomerService(fakeCustomersRepository);
+    createProductService = new CreateProductService(fakeProductsRepository);
   });
 
-  it('should be able to create a new customer', async () => {
-    const user = await createCustomerService.execute({
-      name: 'Douglas Tesch',
-      email: 'douglas@hotmail.com',
+  it('should be able to create a new product', async () => {
+    const product = await createProductService.execute({
+      name: 'caneca',
+      price: 50,
+      quantity: 1,
     });
 
-    expect(user).toHaveProperty('id');
-    expect(user.name).toBe('Douglas Tesch');
-    expect(user.email).toBe('douglas@hotmail.com');
+    expect(product).toHaveProperty('id');
+    expect(product.name).toBe('caneca');
   });
 
-  it('should not be able to create a new customer with an email already registered', async () => {
-    await fakeCustomersRepository.create({
-      name: 'Douglas Tesch',
-      email: 'douglas@hotmail.com',
+  it('should not be able to create a duplicated product', async () => {
+    await fakeProductsRepository.create({
+      name: 'caneca',
+      price: 50,
+      quantity: 1,
     });
 
     await expect(
-      createCustomerService.execute({
-        name: 'Douglas Tesch',
-        email: 'douglas@hotmail.com',
+      createProductService.execute({
+        name: 'caneca',
+        price: 50,
+        quantity: 1,
       }),
     ).rejects.toBeInstanceOf(AppError);
   });

@@ -8,7 +8,7 @@ let fakeCustomersRepository: FakeCustomersRepository;
 let createCustomerService: CreateCustomerService;
 
 describe('CreateCustomer', () => {
-  beforeAll(() => {
+  beforeEach(() => {
     fakeCustomersRepository = new FakeCustomersRepository();
 
     createCustomerService = new CreateCustomerService(fakeCustomersRepository);
